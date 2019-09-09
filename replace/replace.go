@@ -6,7 +6,7 @@
 //		Replace the word "red" with the word "blue" in all go files in current folder and in subfolders.
 //	jay replace . red blue "*.go" true true
 //		Replace the word "red" with the word "blue" in *.go files in current folder including filenames and in subfolders.
-//	jay replace . "blue-jay/blueprint" "user/project"
+//	jay replace . "mbetel/blueprint" "user/project"
 //		Change the name of the project in current folder and in subfolders and all imports to another repository.
 package replace
 

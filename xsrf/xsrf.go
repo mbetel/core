@@ -4,8 +4,8 @@ package xsrf
 import (
 	"net/http"
 
-	"github.com/blue-jay/core/view"
 	"github.com/gorilla/csrf"
+	"github.com/mbetel/core/view"
 )
 
 // Info holds the config.

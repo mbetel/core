@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/blue-jay/core/jsonconfig"
+	"github.com/mbetel/core/jsonconfig"
 )
 
 // Info is an example application structure.

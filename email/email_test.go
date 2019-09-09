@@ -3,7 +3,7 @@ package email_test
 import (
 	"testing"
 
-	"github.com/blue-jay/core/email"
+	"github.com/mbetel/core/email"
 )
 
 // TestEmailFail ensures email fails.

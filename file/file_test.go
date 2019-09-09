@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/blue-jay/core/file"
+	"github.com/mbetel/core/file"
 )
 
 // TestExists ensures the file exists.
