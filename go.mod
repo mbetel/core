@@ -3,7 +3,6 @@ module core
 go 1.20
 
 require (
-	github.com/blue-jay/core v0.0.0-20180921235819-ebdf1d938261
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/gorilla/csrf v1.7.1
 	github.com/gorilla/securecookie v1.1.1

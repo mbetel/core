@@ -8,11 +8,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/blue-jay/core/storage"
-	"github.com/blue-jay/core/storage/migration"
-	"github.com/blue-jay/core/storage/migration/mysql"
-
 	"github.com/jmoiron/sqlx"
+	"github.com/mbetel/core/storage"
+	"github.com/mbetel/core/storage/migration"
+	"github.com/mbetel/core/storage/migration/mysql"
 )
 
 var (

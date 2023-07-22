@@ -6,7 +6,6 @@ import (
 	"errors"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
-	"github.com/mbetel/core/sqlxstore"
 	"net/http"
 )
 
@@ -40,8 +39,8 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 		if err != nil {
 			return err
 		}
-		//i.store = sessions.NewCookieStore(auth, encrypt)
-		i.store = sqlxstore.NewSqlxStoreFromConnection(db, "zoosessiont", auth, encrypt)
+		i.store = sessions.NewCookieStore(auth, encrypt)
+		//i.store = sqlxstore.NewSqlxStoreFromConnection(db, "zoosessiont", auth, encrypt)
 	} else {
 		i.store = sessions.NewCookieStore(auth)
 	}

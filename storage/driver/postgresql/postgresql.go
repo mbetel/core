@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/jmoiron/sqlx"
-	_ "github.com/lib/pq" // Postgres driver
 )
 
 // Info holds the details for the connection.
