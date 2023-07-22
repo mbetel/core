@@ -1,4 +1,4 @@
-module github.com/mbetel/core/v2
+module core
 
 go 1.20
 
