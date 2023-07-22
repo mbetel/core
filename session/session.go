@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
+	"github.com/mbetel/core/sqlxstore"
 	"net/http"
 )
 

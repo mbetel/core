@@ -1,4 +1,4 @@
-module core
+module core/v2
 
 go 1.20
 
