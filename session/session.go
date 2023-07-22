@@ -4,9 +4,9 @@ package session
 import (
 	"encoding/base64"
 	"errors"
-	"net/http"
-
 	"github.com/gorilla/sessions"
+	"github.com/jmoiron/sqlx"
+	"net/http"
 )
 
 // Info holds the session level information.
@@ -20,10 +20,10 @@ type Info struct {
 }
 
 // SetupConfig applies the config and returns an error if it cannot be setup.
-func (i *Info) SetupConfig() error {
+func (i *Info) SetupConfig(db *sqlx.DB) error {
 	// Check for AuthKey
 	if len(i.AuthKey) == 0 {
-		return errors.New("Session AuthKey is missing and is required as a good practice.")
+		return errors.New("session AuthKey is missing and is required as a good practice")
 	}
 
 	// Decode authentication key
@@ -39,7 +39,8 @@ func (i *Info) SetupConfig() error {
 		if err != nil {
 			return err
 		}
-		i.store = sessions.NewCookieStore(auth, encrypt)
+		//i.store = sessions.NewCookieStore(auth, encrypt)
+		i.store = sqlxstore.NewSqlxStoreFromConnection(db, "zoosessiont", auth, encrypt)
 	} else {
 		i.store = sessions.NewCookieStore(auth)
 	}
