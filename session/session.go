@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/mbetel/core/sqlxstore"
 	"net/http"
+	"time"
 )
 
 // Info holds the session level information.
@@ -36,14 +37,14 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 	// If the auth key is not set, should error
 	if len(i.EncryptKey) > 0 {
 		// Decode the encrypt key
-		//encrypt, err := base64.StdEncoding.DecodeString(i.EncryptKey)
-		//if err != nil {
-		//	return err
-		//}
+		encrypt, err := base64.StdEncoding.DecodeString(i.EncryptKey)
+		if err != nil {
+			return err
+		}
 		//i.store = sessions.NewCookieStore(auth, encrypt)
-		keys := []sqlxstore.KeyPair{{AuthenticationKey: []byte("353b53ba096a0000a312c994b60de126ba9d65482a7ad4c4c451639806c26b1d"), EncryptionKey: []byte("addf66f508a5cf7b14e6f4489b2b23d2")}}
+		keys := []sqlxstore.KeyPair{{AuthenticationKey: []byte(auth), EncryptionKey: []byte(encrypt)}}
 
-		i.store, err = sqlxstore.NewSqlxStore(db, "zoosession", keys)
+		i.store, err = sqlxstore.NewSqlxStore(db, "zoosession", keys, sqlxstore.WithCleanupInterval(30*time.Minute))
 	} //else {
 	//	i.store = sessions.NewCookieStore(auth)
 	//}
