@@ -44,7 +44,10 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 		//i.store = sessions.NewCookieStore(auth, encrypt)
 		keys := []sqlxstore.KeyPair{{AuthenticationKey: []byte(auth), EncryptionKey: []byte(encrypt)}}
 
-		i.store, err = sqlxstore.NewSqlxStore(db, "zoosession", keys, sqlxstore.WithCleanupInterval(30*time.Minute))
+		i.store, err = sqlxstore.NewSqlxStore(db, "zoosession", keys, sqlxstore.WithCleanupInterval(30*time.Minute), sqlxstore.WithMaxAge(3600))
+		if err != nil {
+			return err
+		}
 	} //else {
 	//	i.store = sessions.NewCookieStore(auth)
 	//}

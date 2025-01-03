@@ -297,7 +297,7 @@ func (store *SqlxStore) prepareQueryStatements() error {
 	}
 
 	updateQuery := "UPDATE " + store.tableName +
-		" SET sessionData = ?, createdAt = ?, expiresAt = ? WHERE id = ?"
+		" SET sessionData = ?, expiresAt = ? WHERE id = ?"
 	store.stmtUpdate, err = store.db.Preparex(updateQuery)
 	if err != nil {
 		return fromError("prepareQueryStatements->UPDATE", err)
@@ -521,13 +521,14 @@ func (store *SqlxStore) update(session *sessions.Session) error {
 	if session.IsNew == true {
 		return store.insert(session)
 	}
-	var createdAt, expiresAt time.Time
-	sessionCreatedAt := session.Values["createdAt"]
-	if sessionCreatedAt == nil {
-		createdAt = time.Now()
-	} else {
-		createdAt = sessionCreatedAt.(time.Time)
-	}
+	//var createdAt time.Time
+	var expiresAt time.Time
+	//sessionCreatedAt := session.Values["createdAt"]
+	//if sessionCreatedAt == nil {
+	//	createdAt = time.Now()
+	//} else {
+	//	createdAt = sessionCreatedAt.(time.Time)
+	//}
 
 	sessionExpireAt := session.Values["expiresAt"]
 	if sessionExpireAt == nil {
@@ -548,7 +549,7 @@ func (store *SqlxStore) update(session *sessions.Session) error {
 	if err != nil {
 		return fromError("SqlxStore.update", errors.Join(ErrFailedToEncodeSessionData, err))
 	}
-	_, err = store.stmtUpdate.Exec(encoded, createdAt, expiresAt, session.ID)
+	_, err = store.stmtUpdate.Exec(encoded, expiresAt, session.ID)
 	if err != nil {
 		return fromError("SqlxStore.update", errors.Join(ErrFailedToUpdateSession, err))
 	}
