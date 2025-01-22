@@ -538,10 +538,6 @@ func (store *SqlxStore) update(session *sessions.Session) error {
 		if expiresAt.Before(time.Now()) {
 			expiresAt = time.Now().Add(time.Second * time.Duration(session.Options.MaxAge))
 		}
-		//if expiresAt.Sub(time.Now().Add(time.Second*time.Duration(session.Options.MaxAge))) < 0 { // If session is not expired
-		//	// Refresh expiresAt
-		//	expiresAt = time.Now().Add(time.Second * time.Duration(session.Options.MaxAge))
-		//}
 	}
 
 	// Delete this fields since are stored on the table
