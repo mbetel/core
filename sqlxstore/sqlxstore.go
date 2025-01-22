@@ -534,9 +534,14 @@ func (store *SqlxStore) update(session *sessions.Session) error {
 	if sessionExpireAt == nil {
 		expiresAt = time.Now().Add(time.Second * time.Duration(session.Options.MaxAge))
 	} else {
-		expiresAt, _ = time.Parse("2006-01-02 03:04:05 Z0700", sessionExpireAt.(string))
-		if expiresAt.Before(time.Now()) {
+		sea := fmt.Sprintf("%v", sessionExpireAt)
+		expiresAt, err := time.Parse("2006-01-02 03:04:05 Z0700", sea)
+		if err != nil {
 			expiresAt = time.Now().Add(time.Second * time.Duration(session.Options.MaxAge))
+		} else {
+			if expiresAt.Before(time.Now()) {
+				expiresAt = time.Now().Add(time.Second * time.Duration(session.Options.MaxAge))
+			}
 		}
 	}
 
