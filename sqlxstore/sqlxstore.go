@@ -540,6 +540,7 @@ func (store *SqlxStore) update(session *sessions.Session) error {
 			expiresAt = time.Now().Add(time.Second * time.Duration(session.Options.MaxAge))
 		} else {
 			if expiresAt.Before(time.Now()) {
+				// refresh
 				expiresAt = time.Now().Add(time.Second * time.Duration(session.Options.MaxAge))
 			}
 		}
