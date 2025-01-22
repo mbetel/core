@@ -10,7 +10,7 @@ require (
 	github.com/husobee/vestigo v1.1.1
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/justinas/alice v1.2.0
-	golang.org/x/crypto v0.31.0
+	golang.org/x/crypto v0.32.0
 )
 
 require (
