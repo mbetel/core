@@ -1,5 +1,7 @@
 package sqlxstore
 
+/* latest */
+
 import (
 	"database/sql"
 	"errors"
