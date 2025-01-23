@@ -6,7 +6,6 @@ import (
 	"errors"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
-	//"github.com/mbetel/core/sqlxstore"
 	"net/http"
 )
 
@@ -33,24 +32,7 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 		return err
 	}
 
-	// If the auth key is not set, should error
-	//if len(i.EncryptKey) > 0 {
-	//	// Decode the encrypt key
-	//	encrypt, err := base64.StdEncoding.DecodeString(i.EncryptKey)
-	//	if err != nil {
-	//		return err
-	//	}
-	//	//i.store = sessions.NewCookieStore(auth, encrypt)
-	//	keys := []sqlxstore.KeyPair{{AuthenticationKey: []byte(auth), EncryptionKey: []byte(encrypt)}}
-	//	// zet opties
-	//	i.store, err = sqlxstore.NewSqlxStore(db, "zoosession", keys, sqlxstore.WithCleanupInterval(30*time.Minute), sqlxstore.WithMaxAge(3600))
-	//	if err != nil {
-	//		return err
-	//	}
-	//} //else {
 	i.store = sessions.NewCookieStore(auth)
-	//}
-
 	// Store the options in the cookie store.
 	i.store.Options = &i.Options
 
