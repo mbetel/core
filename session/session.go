@@ -6,9 +6,8 @@ import (
 	"errors"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
-	"github.com/mbetel/core/sqlxstore"
+	//"github.com/mbetel/core/sqlxstore"
 	"net/http"
-	"time"
 )
 
 // Info holds the session level information.
@@ -18,7 +17,7 @@ type Info struct {
 	AuthKey    string           `json:"AuthKey"`    // Key for: http://www.gorillatoolkit.org/pkg/sessions#NewCookieStore
 	EncryptKey string           `json:"EncryptKey"` // Key for: http://www.gorillatoolkit.org/pkg/sessions#NewCookieStore
 	CSRFKey    string           `json:"CSRFKey"`    // Key for: http://www.gorillatoolkit.org/pkg/csrf#Protect
-	store      *sqlxstore.SqlxStore
+	store      *sessions.CookieStore
 }
 
 // SetupConfig applies the config and returns an error if it cannot be setup.
@@ -35,21 +34,21 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 	}
 
 	// If the auth key is not set, should error
-	if len(i.EncryptKey) > 0 {
-		// Decode the encrypt key
-		encrypt, err := base64.StdEncoding.DecodeString(i.EncryptKey)
-		if err != nil {
-			return err
-		}
-		//i.store = sessions.NewCookieStore(auth, encrypt)
-		keys := []sqlxstore.KeyPair{{AuthenticationKey: []byte(auth), EncryptionKey: []byte(encrypt)}}
-		// zet opties
-		i.store, err = sqlxstore.NewSqlxStore(db, "zoosession", keys, sqlxstore.WithCleanupInterval(30*time.Minute), sqlxstore.WithMaxAge(3600))
-		if err != nil {
-			return err
-		}
-	} //else {
-	//	i.store = sessions.NewCookieStore(auth)
+	//if len(i.EncryptKey) > 0 {
+	//	// Decode the encrypt key
+	//	encrypt, err := base64.StdEncoding.DecodeString(i.EncryptKey)
+	//	if err != nil {
+	//		return err
+	//	}
+	//	//i.store = sessions.NewCookieStore(auth, encrypt)
+	//	keys := []sqlxstore.KeyPair{{AuthenticationKey: []byte(auth), EncryptionKey: []byte(encrypt)}}
+	//	// zet opties
+	//	i.store, err = sqlxstore.NewSqlxStore(db, "zoosession", keys, sqlxstore.WithCleanupInterval(30*time.Minute), sqlxstore.WithMaxAge(3600))
+	//	if err != nil {
+	//		return err
+	//	}
+	//} //else {
+	i.store = sessions.NewCookieStore(auth)
 	//}
 
 	// Store the options in the cookie store.
