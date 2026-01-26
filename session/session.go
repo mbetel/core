@@ -4,9 +4,11 @@ package session
 import (
 	"encoding/base64"
 	"errors"
+	"net/http"
+
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
-	"net/http"
+	"github.com/srinathgs/mysqlstore"
 )
 
 // Info holds the session level information.
@@ -16,7 +18,8 @@ type Info struct {
 	AuthKey    string           `json:"AuthKey"`    // Key for: http://www.gorillatoolkit.org/pkg/sessions#NewCookieStore
 	EncryptKey string           `json:"EncryptKey"` // Key for: http://www.gorillatoolkit.org/pkg/sessions#NewCookieStore
 	CSRFKey    string           `json:"CSRFKey"`    // Key for: http://www.gorillatoolkit.org/pkg/csrf#Protect
-	store      *sessions.CookieStore
+	//store      *sessions.CookieStore
+	store *mysqlstore.MySQLStore
 }
 
 // SetupConfig applies the config and returns an error if it cannot be setup.
@@ -32,8 +35,9 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 		return err
 	}
 
-	i.store = sessions.NewCookieStore(auth)
+	//i.store = sessions.NewCookieStore(auth)
 	// Store the options in the cookie store.
+	i.store, err = mysqlstore.NewMySQLStore("UN:66677@tcp(10.13.13.2:3306)/zoo3?parseTime=true&loc=Local", "zsessions", "/", 3600, []byte("blahblaj"))
 	i.store.Options = &i.Options
 
 	return nil
