@@ -1,4 +1,4 @@
-module github/mbetel/core
+module github.com/mbetel/core
 
 go 1.25
 
