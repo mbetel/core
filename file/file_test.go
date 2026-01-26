@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github/mbetel/core/file"
+	"github.com/mbetel/core/file"
 )
 
 // TestExists ensures the file exists.
