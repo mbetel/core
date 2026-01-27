@@ -38,14 +38,14 @@ func TestSetConfig(t *testing.T) {
 	text := "foo123"
 
 	// Set up the session cookie store
-	s.SetupConfig()
+	_ = s.SetupConfig(nil)
 
 	// Get the session
 	sess, _ := s.Instance(r)
 
 	// Add a value to the session
 	sess.Values["test"] = text
-	sess.Save(r, w)
+	_ = sess.Save(r, w)
 
 	// Get the session again
 	sess2, _ := s.Instance(r)
@@ -90,14 +90,14 @@ func TestEmpty(t *testing.T) {
 	text := "foo123"
 
 	// Set up the session cookie store
-	s.SetupConfig()
+	_ = s.SetupConfig(nil)
 
 	// Get the session
 	sess, _ := s.Instance(r)
 
 	// Add a value to the session
 	sess.Values["test"] = text
-	sess.Save(r, w)
+	_ = sess.Save(r, w)
 
 	// Empty the session
 	session.Empty(sess)
@@ -138,14 +138,14 @@ func TestNotSecure(t *testing.T) {
 	text := "foo123"
 
 	// Set up the session cookie store
-	s.SetupConfig()
+	_ = s.SetupConfig(nil)
 
 	// Get the session
 	sess, _ := s.Instance(r)
 
 	// Add a value to the session
 	sess.Values["test"] = text
-	sess.Save(r, w)
+	_ = sess.Save(r, w)
 
 	// Get the session again
 	sess2, _ := s.Instance(r)
@@ -176,7 +176,7 @@ func TestNoAuthKey(t *testing.T) {
 	}
 
 	// Set up the session cookie store
-	err := s.SetupConfig()
+	err := s.SetupConfig(nil)
 	if err == nil {
 		t.Fatal("AuthKey error was expected.")
 	}
@@ -202,7 +202,7 @@ func TestAuthKeyBad(t *testing.T) {
 	}
 
 	// Set up the session cookie store
-	err := s.SetupConfig()
+	err := s.SetupConfig(nil)
 	if err == nil {
 		t.Fatal("AuthKey error was expected.")
 	}
@@ -228,7 +228,7 @@ func TestBadEncryptionKey(t *testing.T) {
 	}
 
 	// Set up the session cookie store
-	err := s.SetupConfig()
+	err := s.SetupConfig(nil)
 	if err == nil {
 		t.Fatal("EncryptKey error was expected.")
 	}
