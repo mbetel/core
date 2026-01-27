@@ -8,10 +8,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	csrf "filippo.io/csrf/gorilla"
 	"github.com/mbetel/core/view"
 	"github.com/mbetel/core/xsrf"
-
-	"github.com/gorilla/csrf"
+	//"github.com/gorilla/csrf"
 )
 
 // TestModify ensures token is added to the view.

@@ -4,7 +4,8 @@ package xsrf
 import (
 	"net/http"
 
-	"github.com/gorilla/csrf"
+	//"github.com/gorilla/csrf"
+	csrf "filippo.io/csrf/gorilla"
 	"github.com/mbetel/core/view"
 )
 
