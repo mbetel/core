@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
-	"github.com/srinathgs/mysqlstore"
+	"github.com/mbetel/mysqlxstore"
 )
 
 // Info holds the session level information.
@@ -20,7 +20,7 @@ type Info struct {
 	EncryptKey string           `json:"EncryptKey"` // Key for: http://www.gorillatoolkit.org/pkg/sessions#NewCookieStore
 	CSRFKey    string           `json:"CSRFKey"`    // Key for: http://www.gorillatoolkit.org/pkg/csrf#Protect
 	//store      *sessions.CookieStore
-	store *mysqlstore.MySQLStore
+	store *mysqlxstore.MySQLXStore
 }
 
 // SetupConfig applies the config and returns an error if it cannot be setup.
@@ -38,8 +38,8 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 
 	//i.store = sessions.NewCookieStore(auth)
 	// Store the options in the cookie store.
-	log.Printf("set mysqlstore")
-	i.store, err = mysqlstore.NewMySQLStore("root:66677@tcp(10.13.13.2:3306)/zoo3?parseTime=true&loc=Local", "zsessions", "/", 3600, []byte("blahblaj"))
+	log.Printf("set mysqlxstore")
+	i.store, err = mysqlxstore.NewMySQLXStore("root:66677@tcp(10.13.13.2:3306)/zoo3?parseTime=true&loc=Local", "zsessions", "/", 3600, []byte("blahblaj"))
 	if err != nil {
 		panic(err)
 	}
