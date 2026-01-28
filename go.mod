@@ -11,7 +11,6 @@ require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/justinas/alice v1.2.0
 	github.com/mbetel/mysqlxstore v0.0.0-20260128134406-5cbf1e9859f7
-	github.com/srinathgs/mysqlstore v0.0.0-20231123182912-ffbca72c0a70
 	golang.org/x/crypto v0.47.0
 )
 
