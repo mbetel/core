@@ -6,6 +6,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
@@ -44,7 +45,7 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 		panic(err)
 	}
 	i.store.Options = &i.Options
-
+	i.store.Cleanup(10 * time.Minute)
 	return nil
 }
 
