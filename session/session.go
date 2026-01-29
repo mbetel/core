@@ -39,7 +39,7 @@ func (i *Info) SetupConfig(db *sqlx.DB) error {
 	//i.store = sessions.NewCookieStore(auth)
 	// Store the options in the cookie store.
 	log.Printf("set mysqlxstore")
-	i.store, err = mysqlxstore.NewMySQLXStoreFromConnection(db, "zsessions", "/", 3600, []byte("blahblaj"))
+	i.store, err = mysqlxstore.NewMySQLXStoreFromConnection(db, "zsessions", "/", 3600, auth)
 	if err != nil {
 		panic(err)
 	}
